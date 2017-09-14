@@ -22,10 +22,10 @@ var EventUtil = {
         }
     },
     getEvent: function(event) {
-        return event;
+        return event || window.event;
     },
     getTarget: function(event) {
-        return event.currentTarget;
+        return event.target || event.srcElement;
     },
     getRelatedTarget: function(event) {
         if (event.relatedTarget) {
@@ -78,7 +78,19 @@ var EventUtil = {
         return event.keyCode;
     },
     preventDefault: function(event) {
-        event.preventDefault();
-        event.returnValue = false;
+        if (event.preventDefault) {
+            event.preventDefault();
+        }
+        else {
+            event.returnValue = false;
+        }
+    },
+    stopPropagation: function(event) {
+        if (event.stopPropagation) {
+            event.stopPropagation();
+        }
+        else {
+            event.cancelBubble = true;
+        }
     }
 }
