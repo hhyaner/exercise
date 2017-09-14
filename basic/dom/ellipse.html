@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .info {
+            display: table;
+            /* table-layout: fixed; */
+            width: 300px;
+            background-color: gray
+        }
+
+        .row {
+            display: table-row;
+            display: flex;
+        }
+
+        /* .row div{
+            
+        } */
+        .row div.name {
+            display: table-cell;
+        }
+
+        .name p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .size {
+            display: table-cell;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <div class="row">
+            <div class="name">
+                <p>
+                        0a4877c3f9ba577424d15e234a07a1fb
+                    .000.tdl
+                </p>
+            </div>
+            <div class="size">(618KB/S)</div>
+        </div>
+    </div>
+</body>
+</html>

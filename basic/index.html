@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="myDiv" data-appId="12345" data-myname="Nicholas">
+
+    </div>
+    <input id="myButton" />
+    <div id="container">
+        <p>This is a <strong>paragraph</strong> with a list following it.</p>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </div>
+    <script>
+        var container = document.getElementById('container');
+        console.log(container.innerText);
+        container.innerText = container.innerText;
+
+        var div = document.getElementById('myDiv');
+
+        var appId = div.dataset.appId;
+        var myname = div.dataset.myname;
+
+        div.dataset.appId = 23456;
+        div.dataset.myname = "Michael";
+        
+        if (div.dataset.myname) {
+            console.log('hello', div.dataset.myname);
+        }
+
+        div.innerHTML = 'Hello & world! <b>\"reader\"!</b>';
+        console.log(div.innerHTML);
+
+        if (document.hasFocus()) {
+            console.info(document.hasFocus(), document.activeElement);
+        }
+        var button = document.getElementById('myButton');
+        button.focus();
+        console.info(document.activeElement === button, document.activeElement, document.hasFocus());
+
+        console.log(document.readyState);
+        document.onload = function() {
+            if (document.readyState  == "complete") {
+                console.log('ready')
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../util/EventUtil.js"></script>
+    <script>
+        // EventUtil.addHandler(window, 'beforeunload', function(event) {
+        //     event = EventUtil.getEvent(event);
+
+        //     var message = "I'm really going to miss you if you go.";
+        //     event.returnValue = message;
+        //     return message;
+        // });
+        EventUtil.addHandler(window, 'load', function() {
+            var script = document.createElement('script');
+            
+            var link = document.createElement('link');
+            link.type = 'text/css';
+            link.rel = 'stylesheet';
+
+            EventUtil.addHandler(link, 'readstatechange', function(event) {
+                event = EventUtil.getEvent(event);
+                var target = EventUtil.getTarget(event);
+
+                if (target.readyState == 'loaded' || target.readyState == 'complete') {
+                    EventUtil.removeHandler(target, 'readstatechange', arguments.callee);
+
+                    console.log('CSS loaded');
+                }
+            });
+            link.href = 'example.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+
+            EventUtil.addHandler(script, 'readystatechange', function(event) {
+                event = EventUtil.getEvent(event);
+                var target = EventUtil.getTarget(event);
+
+                if (target.readyState == 'loaded' || target.readyState == 'complete') {
+                    EventUtil.removeHandler(target, 'readystatechnage', arguments.callee);
+
+                    console.log('Script loaded');
+                }
+            });
+
+            script.src = 'example.js';
+            document.body.appendChild(script);
+        });
+
+        EventUtil.addHandler(document, 'DOMContentLoaded', function(event) {
+            console.log('Content loaded', event.target);
+        });
+
+        EventUtil.addHandler(document, 'readystatechange', function(event) {
+            if (document.readyState == 'interactive' || document.readyState == 'complete') {
+                console.log('Content loaded interactive');
+                EventUtil.removeHandler(document, 'readystatechange', arguments.callee);    
+            }
+        });
+    </script>
+</body>
+</html>

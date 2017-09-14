@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="mutation.html">mutation</a>
+    <script src="../util/EventUtil.js"></script>
+    <script>
+        (function() {
+            var showCount = 0;
+
+            EventUtil.addHandler(window, 'load', function() {
+                console.log('load fired');
+            });
+
+            EventUtil.addHandler(window, 'pageshow', function() {
+                showCount++;
+                console.log('Show has been fired ' + showCount + ' times. Persisted? ' + event.persisted);
+            });
+        })();
+
+        EventUtil.addHandler(window, 'unload', function() {
+            console.log('unload');
+        });
+    </script>
+</body>
+
+</html>

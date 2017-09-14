@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Example XHTML page</title>
+    <style type="text/css">
+        #myDiv {
+            background-color: blue;
+            width: 100px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    hello world!
+    <div id="myDiv" style="background-color:red; border: 1px solid black">终于等到你</div>
+    <script>
+        var supportsDOM2Core = document.implementation.hasFeature('Core', '2.0');
+        var supportsDOM3Core = document.implementation.hasFeature('Core', '3.0');
+        var supportsDOM2HTML = document.implementation.hasFeature('HTML', '2.0');
+        var supportsDOM2Views = document.implementation.hasFeature('Views', '2.0');
+        var supportsDOM2XML = document.implementation.hasFeature('XML', '2.0');
+
+        console.log(supportsDOM2Core, supportsDOM3Core, supportsDOM2HTML, supportsDOM2Views, supportsDOM2XML);
+        
+        var svg = document.createElementNS('http://http://www.w3.org/2000/svg', 'svg');
+        var attr = document.createAttributeNS('http://www.somewhere.com', 'random');
+
+        svg.setAttributeNode(attr);
+        var elems = document.getElementsByTagNameNS('http://http://www.w3.org/1999/xhtml', '*');
+        document.body.appendChild(svg);
+        
+
+        var myDiv = document.getElementById('myDiv');
+        // console.log(myDiv.style.backgroundColor, myDiv.style.width, myDiv.style.height)
+
+        // myDiv.style.backgroundColor = 'red';
+
+        // myDiv.style.width = '100px';
+        // myDiv.style.height = '200px';
+
+        // // 指定边框
+        // myDiv.style.border = '1px solid black';
+        var computedStyle = document.defaultView.getComputedStyle(myDiv, null);
+        console.log(computedStyle.backgroundColor, computedStyle.width, computedStyle.height, computedStyle.border);
+
+        
+
+
+    </script>
+</body>
+</html>
