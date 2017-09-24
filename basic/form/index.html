@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" id="myForm">
+        <fieldset>
+            <legend>
+                <ul>
+                    <li>
+                        <label for="">描述</label>
+                        <textarea name="textbox" id="" cols="30" rows="10">
+                            Hi, placeholder
+                        </textarea>
+                    </li>
+                    <li>
+                        <label>电话号码</label>
+                        <input type="text" name="tel1" id="txtTel1" maxlength="3"/>
+                        <input type="text" name="tel2" id="txtTel2" maxlength="3"/>
+                        <input type="text" name="tel3" id="txtTel3" maxlength="4"/>
+                    </li>
+                </ul>
+            </legend>
+        </fieldset>
+        <ul>
+            <li><input type="radio" name="color" id="red"> Red</li>
+            <li><input type="radio" name="color" id="green"> Green</li>
+            <li><input type="radio" name="color" id="blue"> Blue</li>
+        </ul>
+    </form>
+    <script src="../util/EventUtil.js"></script>
+    <script>
+        var textbox = document.forms[0].elements['textbox'];
+        EventUtil.addHandler(textbox, 'focus', function(event) {
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+
+            target.select();
+        });
+
+
+        EventUtil.addHandler(textbox, 'select', function(event) {
+            console.log('Text selected ', getSelectedText(textbox));
+        });
+
+        EventUtil.addHandler(textbox, 'keypress', function(event) {
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            var charCode = EventUtil.getCharCode(event);
+
+            if (!/\d/.test(String.fromCharCode(charCode)) && charCode > 9 && !event.ctrlKey) {
+                EventUtil.preventDefault(event);
+            }
+
+        });
+
+        EventUtil.addHandler(textbox, 'paste', function(event) {
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            var text = EventUtil.getClipboardText(event);
+
+            console.log('粘贴', text);
+        });
+
+        function getSelectedText(textbox) {
+            if (typeof textbox.selectionStart === 'number') {
+                return textbox.value.substring(textbox.selectionStart, textbox.selectionEnd);
+            }
+            else if (document.selection) {
+                return document.selection.createRange().text;
+            }
+        }
+
+
+        function selectText(textbox, startIndex, stopIndex) {
+            textbox.focus();
+
+            if (textbox.setSelectionRange) {
+                textbox.setSelectionRange(startIndex, stopIndex);
+            }
+            else if (textbox.createTextRange) {
+                var range = textbox.createTextRange();
+
+                // 选择所有文本
+                range.collapse(true);
+                range.moveStart('character', startIndex);
+                range.moveEnd('character', stopIndex);
+                range.select();
+            }
+        }
+
+        // textbox.value = 'Hello world!';
+
+        // selectText(textbox, 0, 3);
+
+
+        (function() {
+            function tabForward(event) {
+                event = EventUtil.getEvent(event);
+                var target = EventUtil.getTarget(event);
+
+                if (target.value.length === target.maxLength) {
+                    var form = target.form;
+
+                    for (var i = 0, len = form.elements.length; i < len; i++) {
+                        if (form.elements[i] == target) {
+                            if (form.elements[i + 1]) {
+                                form.elements[i + 1].focus();   
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
+
+            var textbox1 = document.getElementById('txtTel1');
+            var textbox2 = document.getElementById('txtTel2');
+            var textbox3 = document.getElementById('txtTel3');
+
+            EventUtil.addHandler(textbox1, 'keyup', tabForward);
+            EventUtil.addHandler(textbox2, 'keyup', tabForward);
+            EventUtil.addHandler(textbox3, 'keyup', tabForward);
+        }());
+    </script>
+</body>
+</html>
