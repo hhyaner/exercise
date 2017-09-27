@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <select name="location" id="selLocation">
+            <option value="Sunnyvale, CA">Sunnyvale</option>
+            <option value="Los Angeles, CA">Los Angeles</option>
+            <option value="Mountain View, CA">Mountain View</option>
+            <option value="">China</option>
+            <option>Australia</option>
+        </select>
+        <br/>
+        <input type="button" id="btnSetSelection" value="设置选中项" />
+        <input type="button" id="btnCreateOption" value="创建选项" />
+        <input type="button" id="btnRemoveOption" value="移除选项" />
+        <input type="button" id="btnMoveOption" value="移动选项" />
+    </form>
+    <script src="../util/EventUtil.js"></script>
+    <script>
+        var selectbox = document.forms[0].elements['location'];
+
+        // 推荐
+        var text = selectbox.options[0].text;
+        var value = selectbox.options[0].value;
+
+        EventUtil.addHandler(selectbox, 'change', function() {
+            var selectedIndex = selectbox.selectedIndex;
+            var selectedOptions = getSelectedOptions(selectbox);
+
+            
+            for (var i = 0, len = selectedOptions.length; i < len; i++) {
+                var selectedOption = selectedOptions[i];
+
+                console.log('Selected index: ' , selectedIndex , '\n Selected text:',
+                selectedOption.text, ' selected value:' , selectedOption.value);
+            }
+        });
+
+        // 设置选中项
+        var btnSetSelection = document.getElementById('btnSetSelection');
+        EventUtil.addHandler(btnSetSelection, 'click', function() {
+            selectbox.options[0].selected = true;
+        });
+
+        // 获得选中项
+        function getSelectedOptions(selectbox) {
+            var result = new Array();
+
+            for (var i = 0, len = selectbox.options.length; i < len; i++) {
+                var option = selectbox.options[i];
+
+                if (option.selected) {
+                    result.push(option);
+                }
+            }
+
+            return result;
+        }
+
+
+        // 添加选项
+        var btnCreateOption = document.getElementById('btnCreateOption');
+        EventUtil.addHandler(btnCreateOption, 'click', function() {
+            // var newOption = document.createElement('option');
+            // newOption.appendChild(document.createTextNode('Option text'));
+            // newOption.setAttribute('value', 'Option value');
+
+            var newOption = new Option('Option text', 'Option value');
+            selectbox.appendChild(newOption);
+        });
+
+        // 移除选项
+        var btnRemoveOption = document.getElementById('btnRemoveOption');
+        EventUtil.addHandler(btnRemoveOption, 'click', function() {
+            // 方法1
+            // selectbox.removeChild(selectbox.options[0]);
+
+            // // 方法2
+            // selectbox.remove(0);
+
+            // 方法3
+            selectbox.options[0] = null;
+        });
+
+        // 清除所有选项
+        function clearSelectbox(selectbox) {
+            for (var i = 0, len = selectbox.options.length; i < len; i++) {
+                selectbox.remove(0);
+            }
+        }
+
+        // 移动选项
+        var btnMoveOption = document.getElementById('btnMoveOption');
+        EventUtil.addHandler(btnMoveOption, 'click', function() {
+            var optionToMove = selectbox.options[1];
+
+            selectbox.insertBefore(optionToMove, selectbox.options[optionToMove.index + 2]);
+        });
+    </script>
+</body>
+
+</html>
