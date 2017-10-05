@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <iframe name="richedit" style="height: 100px; width: 100px" src="blank.html" ></iframe>
+    <input type="button" id="btnBlod" value="加粗"/>
+    <input type="button" id="btnSelect" value="获取选区"/>
+
+    <script src="../util/EventUtil.js" ></script>
+    <script>
+        EventUtil.addHandler(window, 'load', function() {
+            frames['richedit'].document.designMode = 'on';
+        });
+
+        EventUtil.addHandler(document.getElementById('btnBlod'), 'click', function() {
+            frames['richedit'].document.exceCommand('bold', false, null);
+        });
+
+        EventUtil.addHandler(document.getElementById('btnSelect'), 'click', function() {
+            var selection = frames['richedit'].getSelection();
+            console.log(selection);
+
+
+            var selectedText = selection.toString();
+            // 取得代表选区的范围
+            var range = selection.getRangeAt(0);
+            // 突出显示选择的文本
+            var span = frames["richedit"].document.createElement("span");
+            span.style.backgroundColor = "yellow";
+            range.surroundContents(span);
+            
+        });
+    </script>
+    <div class="editable" id="editable" contenteditable></div>
+</body>
+</html>
