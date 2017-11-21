@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #ball {
+            width: 50px;
+            height: 50px;
+            background-color: #f60;
+        }
+    </style>
+</head>
+<body>
+    <div id="ball">
+    </div>
+    <input id="btnMove" type="button" value="移动吧" onclick="move();" />
+    <script>
+        var lastTime = 0;
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+            var id = window.setTimeout(function() {
+                callback(currTime + timeToCall);
+            }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+
+        function move() {
+            var start = null;
+            var element = document.getElementById('ball');
+            element.style.position = 'absolute';
+            var i = 0;
+
+            function step(timestamp) {
+                if (!start) {
+                    start = timestamp;
+                }
+
+                var progress = timestamp - start;
+                element.style.left = Math.min(progress / 2.5, 800) + 'px';
+                i++;
+                // console.log(timestamp, i);
+                if (progress < 2000) {
+                    window.requestAnimationFrame(step);
+                }
+            }
+
+            window.requestAnimationFrame(step);
+        }
+
+        // move();
+    </script>
+</body>
+</html>

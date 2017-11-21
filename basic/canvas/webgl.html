@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="drawing"></canvas>
+    <script>
+        // // 创建一个新数组，使用整个缓冲器
+        // var int8s = new Int8Array(buffer);
+
+        // // 只使用从字节 9 开始的缓冲器
+        // var int16s = new Int16Array(buffer, 9);
+
+        // // 只使用从字节 9 到字节 18 的缓冲器
+        // var uint16s = new Uint16Array(buffer, 9, 10);
+
+        // // 使用缓冲器的一部分保存 8 位整数，另一部分保存 16 位整数
+        // var int8s = new Int8Array(buffer, 0, 10);
+        // var uint16s = new Unit16Array(buffer, 11, 10);
+
+        // // 需要 10 个元素空间
+        // var int8s = new Int8Array(buffer, 0, 10 * Int8Array.BYTES_PER_ELEMENT);
+
+        // // 需要 5 个元素空间
+        // var uint16s = new Uint16Array(
+        //     buffer,
+        //     int8s.byteOffset + int8s.byteLength,
+        //     5 * Uint16Array.BYTES_PER_ELEMEN
+        // );
+
+        // // 创建一个数组保存 10 个 8 位整数（10 字节）
+        // var int8s = new Int8Array(10);
+
+        // // 创建一个数组保存 10 个 16 位整数（20 字节）
+        // var int16s = new Int16Array(10);
+
+        // 创建一个数组保存 5 个 8 位整数（10 字节）
+        // var int8s = new Int8Array([10, 20, 30, 40, 50]);
+        // for (var i = 0, len = int8s.length; i < len; i++) {
+        //     console.log('Value at position ' + i + ' is ' + int8s[i]);
+        // }
+
+        // var uint16s = new Uint16Array(10);
+        // uint16s[0] = 65537;
+        // console.log(uint16s[0]);
+        var drawing = document.getElementById('drawing');
+
+        // 确定浏览器支持 <canvas> 元素
+        if (drawing.getContext) {
+            var gl;
+            try {
+                gl = drawing.getContext('experimental-webgl', {
+                    alpha: false
+                });
+            } catch (ex) {
+                // 什么也不做
+            }
+            
+            if (gl) {
+                console.log('gl');
+            }
+        }
+    </script>
+</body>
+</html>

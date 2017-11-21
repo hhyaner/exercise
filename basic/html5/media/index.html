@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="mediaplayer">
+    <div class="audio">
+       <!-- 嵌入音频 -->
+      <audio id="player" controls autoplay loop defaultPlaybackRage='100' volume=".5">
+        <source  src="../../assets/1.mp3" type="audio/mpeg" >
+        Audio player not availabe.
+      </audio>    
+    </div>
+  </div>
+  <div class="controls">
+    <input type="button" value="Play" id="audio-btn">
+    <span id="curtime">0</span>
+    <span id="duration">0</span>
+  </div>
+  <input type="button" value="go" id="goBtn"/>
+
+  <audio src="../../assets/1.mp3" id="myAudio2">Audio player not available.</audio>
+  <script src="../../util/EventUtil.js"></script>
+  
+  <script>
+    var player = document.getElementById('player');
+    var btn = document.getElementById('audio-btn');
+    var curtime = document.getElementById('curtime');
+    var duration = document.getElementById('duration');
+    // duration.innerHTML = player.duration;
+
+    EventUtil.addHandler(btn, 'click', function(event) {
+      if (player.paused) {
+        player.play();
+        btn.value = 'Pause';
+      }
+      else {
+        player.pause();
+        btn.value = 'Play';
+      }
+    });
+
+    setInterval(function() {
+      curtime.innerHTML = parseInt(player.currentTime, 10);
+    }, 500);
+
+    var goBtn = document.getElementById('goBtn');
+    EventUtil.addHandler(goBtn, 'click', function() {
+      var stateObj = { foo: 'bar' };
+      history.pushState(stateObj, 'page2', 'autoPlayAudio.html');
+    });
+  </script>
+</body>
+</html>

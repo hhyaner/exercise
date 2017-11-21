@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #droptarget {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    在下方可以放置内容
+    <div id="droptarget" dropEffect="move" effectAllowed="move">
+    </div>
+    <img src="../../images/01.jpg" draggable="true" id="dragImg"/>
+    <script src="../../util/EventUtil.js"></script>
+    <script>
+        var droptarget = document.getElementById('droptarget');
+
+        EventUtil.addHandler(droptarget, 'dragover', function (event) {
+            EventUtil.preventDefault(event);
+        });
+
+        // EventUtil.addHandler(droptarget, 'dragenter', function (event) {
+        //     EventUtil.preventDefault(event);
+        // });
+
+        EventUtil.addHandler(droptarget, 'drop', function (event) {
+            EventUtil.preventDefault(event);
+
+            var text = event.dataTransfer.getData('text');
+            droptarget.innerHTML = text;
+        });
+        
+
+        var dragImg = document.getElementById('dragImg');
+        EventUtil.addHandler(dragImg, 'dragstart', function (event) {
+            event.dataTransfer.setData('text', 'some.text');
+        });
+        
+    </script>
+</body>
+</html>

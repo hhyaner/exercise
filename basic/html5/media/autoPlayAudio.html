@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <script src="../../util/EventUtil.js"></script>
+    <script>
+      var audio = new Audio('../../assets/1.mp3');
+      EventUtil.addHandler(audio, 'canplaythrough', function(event) {
+        audio.play();
+      })
+    </script>
+</body>
+</html>
